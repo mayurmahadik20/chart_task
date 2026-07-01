@@ -1,4 +1,4 @@
-#Students Marcks Updates with Interactive Charts
+#Students Marks Updates with Interactive Charts
 
 app   - run command 'npm start'
 server- run command 'nodemon index.mjs'
