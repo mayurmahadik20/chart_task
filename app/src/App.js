@@ -10,6 +10,8 @@ function App() {
     socket.on('message', (data) => {
       setData(data);
     });
+
+    return () => socket.disconnect();
   }, []);
 
   return (
