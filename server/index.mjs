@@ -12,30 +12,30 @@ const server = new socketio.Server(httpServer, {
   },
 });
 let timeChange;
-let counter = 0;
+let counter = 4;
 
 const getRandomValue = () => Math.floor(Math.random() * 100);
 
 const data = [
-  { name: `${counter  }`,   value: getRandomValue() },
-  { name: `${counter+1}`, value: getRandomValue() },
-  { name: `${counter+2}`, value: getRandomValue() },
-  { name: `${counter+3}`, value: getRandomValue() },
-  { name: `${counter+4}`, value: getRandomValue() },
+  { name: '0', value: getRandomValue() },
+  { name: '1', value: getRandomValue() },
+  { name: '2', value: getRandomValue() },
+  { name: '3', value: getRandomValue() },
+  { name: '4', value: getRandomValue() },
 ];
+
+const emitData = () => {
+  counter++;
+  data.push({ name: `${counter}`, value: getRandomValue() });
+  if (data.length > 20) data.shift();
+  server.emit('message', data);
+};
+
+timeChange = setInterval(emitData, 1000);
 
 server.on('connection', (socket) => {
   console.log('connected');
-  if (timeChange) clearInterval(timeChange);
-
-  const emitData = () => {
-    counter++;
-    data.push({ name: counter, value: getRandomValue() });
-    if (data.length > 20) data.shift();
-    socket.emit('message', data);
-  };
-
-  timeChange = setInterval(emitData, 1000);
+  socket.emit('message', data);
 });
 
 httpServer.listen(port);
