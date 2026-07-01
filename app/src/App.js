@@ -12,6 +12,14 @@ function App() {
     });
   }, []);
 
+  const commonChartElements = [
+    <XAxis key="xaxis" dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom'}} />,
+    <YAxis key="yaxis" label={{ value: 'Marks', angle: -90, position: 'insideLeft' }} />,
+    <Tooltip key="tooltip" />,
+    <CartesianGrid key="grid" stroke="#f5f5f5" />,
+    <Brush key="brush" dataKey="name" height={30} stroke="#8884d8" />
+  ];
+
   return (
     <div>
       <h1>Live Students Marcks Updates with Interactive Charts</h1>
@@ -20,12 +28,8 @@ function App() {
         <h2>Line Chart</h2>
         <ResponsiveContainer width="80%" height={300}>
           <LineChart data={data}>
-            <XAxis dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom'}} />
-            <YAxis label={{ value: 'Marks', angle: -90, position: 'insideLeft', }} />
-            <Tooltip />
-            <CartesianGrid stroke="#f5f5f5" />
+            {commonChartElements}
             <Line type="monotone" dataKey="value" stroke="#ff7300" yAxisId={0} />
-            <Brush dataKey="name" height={30} stroke="#8884d8" />
           </LineChart>
         </ResponsiveContainer>
       </div>
@@ -33,12 +37,8 @@ function App() {
         <h2>Bar Chart</h2>
         <ResponsiveContainer width="80%" height={300}>
           <BarChart data={data}>
-            <XAxis dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom' }} />
-            <YAxis label={{ value: 'Marks', angle: -90, position: 'insideLeft' }} />
-            <Tooltip />
-            <CartesianGrid stroke="#f5f5f5" />
+            {commonChartElements}
             <Bar dataKey="value" fill="#387908" />
-            <Brush dataKey="name" height={30} stroke="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
       </div>
