@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div>
-      <h1>Live Students Marcks Updates with Interactive Charts</h1>
+      <h1>Live Students Marks Updates with Interactive Charts</h1>
       
       <div>
         <h2>Line Chart</h2>
