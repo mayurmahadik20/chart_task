@@ -1,15 +1,39 @@
-
 import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import { LineChart, BarChart, XAxis, YAxis, Tooltip, CartesianGrid, Line, Bar, ResponsiveContainer, Brush } from 'recharts';
 
 function App() {
   const [data, setData] = useState([]);
+
   useEffect(() => {
-    const socket = socketIOClient('http://127.0.0.1:4001/');
-    socket.on('message', (data) => {
-      setData(data);
-    });
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      const socket = socketIOClient('http://127.0.0.1:4001/');
+      socket.on('message', (data) => {
+        setData(data);
+      });
+      return () => socket.disconnect();
+    } else {
+      // Simulate backend for deployed environment
+      let counter = 0;
+      const getRandomValue = () => Math.floor(Math.random() * 100);
+      let simulatedData = [
+        { name: `${counter}`, value: getRandomValue() },
+        { name: `${counter+1}`, value: getRandomValue() },
+        { name: `${counter+2}`, value: getRandomValue() },
+        { name: `${counter+3}`, value: getRandomValue() },
+        { name: `${counter+4}`, value: getRandomValue() },
+      ];
+      setData([...simulatedData]);
+
+      const interval = setInterval(() => {
+        counter++;
+        simulatedData.push({ name: String(counter + 4), value: getRandomValue() });
+        if (simulatedData.length > 20) simulatedData.shift();
+        setData([...simulatedData]);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
   }, []);
 
   return (
@@ -47,4 +71,3 @@ function App() {
 }
 
 export default App;
-
