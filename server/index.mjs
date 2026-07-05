@@ -2,6 +2,7 @@
 import express from 'express';
 import http from 'http';
 import * as socketio from 'socket.io';
+import { updateDataArray } from './dataManager.mjs';
 
 const port = 4001;
 const app = express();
@@ -16,7 +17,7 @@ let counter = 0;
 
 const getRandomValue = () => Math.floor(Math.random() * 100);
 
-const data = [
+let data = [
   { name: `${counter  }`,   value: getRandomValue() },
   { name: `${counter+1}`, value: getRandomValue() },
   { name: `${counter+2}`, value: getRandomValue() },
@@ -30,8 +31,7 @@ server.on('connection', (socket) => {
 
   const emitData = () => {
     counter++;
-    data.push({ name: counter, value: getRandomValue() });
-    if (data.length > 20) data.shift();
+    data = updateDataArray(data, counter, getRandomValue());
     socket.emit('message', data);
   };
 
