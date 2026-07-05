@@ -14,13 +14,13 @@ function App() {
 
   return (
     <div>
-      <h1>Live Students Marcks Updates with Interactive Charts</h1>
+      <h1>Live Students Marks Updates with Interactive Charts</h1>
       
       <div>
         <h2>Line Chart</h2>
         <ResponsiveContainer width="80%" height={300}>
           <LineChart data={data}>
-            <XAxis dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom'}} />
+            <XAxis dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom', offset: -5}} />
             <YAxis label={{ value: 'Marks', angle: -90, position: 'insideLeft', }} />
             <Tooltip />
             <CartesianGrid stroke="#f5f5f5" />
@@ -33,7 +33,7 @@ function App() {
         <h2>Bar Chart</h2>
         <ResponsiveContainer width="80%" height={300}>
           <BarChart data={data}>
-            <XAxis dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom' }} />
+            <XAxis dataKey="name" label={{ value: 'Roll Number', position: 'insideBottom', offset: -5 }} />
             <YAxis label={{ value: 'Marks', angle: -90, position: 'insideLeft' }} />
             <Tooltip />
             <CartesianGrid stroke="#f5f5f5" />
