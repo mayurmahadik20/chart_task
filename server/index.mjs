@@ -8,7 +8,7 @@ const app = express();
 const httpServer = http.createServer(app);
 const server = new socketio.Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   },
 });
 let timeChange;
